@@ -1,0 +1,17 @@
+# ical url, OPTIONAL - it is to update current file
+icalUrl:
+# filename for ical
+filename: plan.ics
+# If modifying these scopes, delete the file token.json.
+scopes:
+  - https://www.googleapis.com/auth/calendar
+# if to skip updating already exisiting events, useful if you just want to add additional events, not overriding exisiting
+skipUpdating: false
+# calendar to append and edit, run gcalendarinfo.py for available (default: primary)
+calendarId: primary
+# Modify to set colors, run gcalendarinfo.py for available
+colors:
+  W: 6
+  L: 5
+  C: 1
+  P: 11
