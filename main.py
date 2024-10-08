@@ -53,6 +53,9 @@ def main():
 
     if icalUrl is not None and not (icalUrl == ""):
         urllib.request.urlretrieve(icalUrl, filename)
+    else:
+        if not os.path.isfile(filename):
+            return print("You must provide working ical link or file with correct filename.")
 
     #getting calendar from ical file
     calendar = parseIcal(filename)
@@ -103,7 +106,7 @@ def main():
 
         #add events
         for evt in calendar["events"]:
-            title = f"{evt["building"][:1] + evt["building"][2:]}/{evt["room"]} {evt['summary']}"
+            title = f"{evt['building'][:1] + evt['building'][2:]}/{evt['room']} {evt['summary']}"
             event = {
                 'summary': title,
                 'location': evt["location"],
