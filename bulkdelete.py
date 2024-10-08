@@ -6,8 +6,9 @@ from googleapiclient.errors import HttpError
 
 import urllib.request
 
-from icalParser import parseIcal
-from gauth import auth
+from modules.icalParser import parseIcal
+from modules.gauth import auth
+from main import yesterday
 
 import yaml
 import os.path
@@ -73,7 +74,7 @@ def main():
             service.events()
             .list(
                 calendarId=calendarId,
-                timeMin=calendar['dtstamp'] + "Z", #is offsetted by 2h, since it is straight telling it is UTC, tho it is CEST
+                timeMin=yesterday(calendar['dtstamp']) + "Z", #is offsetted by 2h, since it is straight telling it is UTC, tho it is CEST
                 maxResults=1000,
                 singleEvents=True,
                 orderBy="startTime",

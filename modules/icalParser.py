@@ -1,3 +1,11 @@
+from datetime import datetime, timedelta
+
+frmt = '%Y-%m-%dT%H:%M:%S'
+
+def eventPostProcess(event):
+    #print(event)
+    pass
+
 def parseIcal(name):
     """
     :param name: name of file
@@ -29,6 +37,8 @@ def parseIcal(name):
     """
     f = open(name, "r", encoding="utf-8")
 
+    lines = []
+
     returnOBJ = {"timezone": None, "dtstamp": None, "events": []}
 
     currentEventIndex = -1
@@ -42,6 +52,8 @@ def parseIcal(name):
         if line.startswith("BEGIN:VEVENT"):
             currentEventIndex += 1
             returnOBJ["events"].append({})
+        elif line.startswith("END:VEVENT"):
+            eventPostProcess(returnOBJ["events"][currentEventIndex])
         elif line.startswith("SUMMARY"):
             returnOBJ["events"][currentEventIndex]["summary"] = "-".join(line.split("-")[1:])[1:]
             returnOBJ["events"][currentEventIndex]["type"] = line.split(':')[1][0]

@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
@@ -49,6 +49,8 @@ calendarId = config['calendarId']
 """
 COLORS = config['colors']
 
+frmt = '%Y-%m-%dT%H:%M:%S'
+
 def main():
 
     if icalUrl is not None and not (icalUrl == ""):
@@ -74,7 +76,7 @@ def main():
             service.events()
             .list(
                 calendarId=calendarId,
-                timeMin=calendar['dtstamp'] + "Z", #is offsetted by 2h, since it is straight telling it is UTC, tho it is CEST
+                timeMin=yesterday(calendar['dtstamp']) + "Z",
                 maxResults=1000,
                 singleEvents=True,
                 orderBy="startTime",
@@ -143,8 +145,11 @@ def getColor(colorName):
     col = COLORS[colorName]
     if col:
         return col
-    else:
-        return 1
+    return 1
+
+def yesterday(dateString):
+    datetime_object = datetime.strptime(dateString, frmt) - timedelta(days=1, hours=2)
+    return datetime_object.strftime(frmt)
 
 if __name__ == "__main__":
     main()

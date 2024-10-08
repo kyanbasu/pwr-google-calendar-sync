@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-from gauth import auth
+from modules.gauth import auth
 
 SCOPES = ["https://www.googleapis.com/auth/calendar"]
 
