@@ -4,9 +4,9 @@ Syncing calendar from pwr USOS ical url/file to google calendar using api
 
 
 ## Configuration
-Copy/rename example-config.yaml to config.yaml and configure it.
+1. `pip install -r requirements.txt`
 
-`pip install -r requirements.txt`
+2. Copy/rename example-config.yaml to config.yaml and configure it.
 
 ## Running
 Run `main.py`
