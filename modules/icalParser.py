@@ -2,7 +2,9 @@ from datetime import datetime, timedelta
 
 frmt = '%Y-%m-%dT%H:%M:%S'
 
-def eventPostProcess(event):
+eventindexes_to_remove = []
+
+def eventPostProcess(event, index):
     #print(event)
     pass
 
@@ -53,7 +55,7 @@ def parseIcal(name):
             currentEventIndex += 1
             returnOBJ["events"].append({})
         elif line.startswith("END:VEVENT"):
-            eventPostProcess(returnOBJ["events"][currentEventIndex])
+            eventPostProcess(returnOBJ["events"][currentEventIndex], currentEventIndex)
         elif line.startswith("SUMMARY"):
             returnOBJ["events"][currentEventIndex]["summary"] = "-".join(line.split("-")[1:])[1:]
             returnOBJ["events"][currentEventIndex]["type"] = line.split(':')[1][0]
@@ -81,6 +83,11 @@ def parseIcal(name):
             returnOBJ["timezone"] = line.split(":")[1]
 
         lineIndex += 1
+
+    eventindexes_to_remove.sort(reverse=True)
+
+    for i in range(len(eventindexes_to_remove)):
+        print("removed from list", returnOBJ["events"].pop(eventindexes_to_remove[i]))
 
     return returnOBJ
 
