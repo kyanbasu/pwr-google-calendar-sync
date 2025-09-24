@@ -10,11 +10,11 @@ from modules.uiHelper import (
 
 # Define menu options and their associated colors
 menu_options = [
-    ("Sync update", "#ffa500"),
+    ("Sync events", "#ffa500"),
     ("Sync without updating", "#ffa500"),
     ("Edit sync config", "#9da0e2"),
     ("Calendar Info", "#a2d3e0"),
-    ("Delete", "#ff88aa"),
+    ("Delete events", "#ff88aa"),
     ("Exit", "#ff3030"),
 ]
 
@@ -58,7 +58,12 @@ def main():
         # Clear the screen and process the selected option
         clear_screen()
         match menu_options[selected_index][0]:
-            case "Sync update":
+            case "Sync events":
+                set_foreground("#ffa900")
+                print("You selected Run. Executing run sequence...")
+                reset_formatting()
+
+            case "Sync without updating":
                 set_foreground("#ffa900")
                 print("You selected Run. Executing run sequence...")
                 reset_formatting()
@@ -68,7 +73,11 @@ def main():
 
                 change_window(Window.config)
                 return
-            case "Delete":
+            case "Calendar Info":
+                from gcalendarinfo import main as calendarInfoMain
+
+                calendarInfoMain()
+            case "Delete events":
                 pass
             case "Exit":
                 sys.exit(0)
